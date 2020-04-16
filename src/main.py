@@ -1,9 +1,9 @@
-import cv2
-import numpy as np
 import os
 import sys
 
+import cv2
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 COLOR_BUILDINGS = [70, 70, 70]
