@@ -2,6 +2,7 @@
 This module changes color of images.
 """
 
+import argparse
 import os
 import sys
 
@@ -59,25 +60,28 @@ def save_image(path, img):
 def main(_from, _to):
     """
     Entry point.
-
-    USAGE
-    -----
-    python src/main.py show data/<input_file>
-    python src/main.py save data/<input_file> data/<save_file>
     """
 
-    args = sys.argv[1:]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('cmd', choices=['show', 'change'],
+                        help='"cmd" is "show" or "change".')
+    parser.add_argument('img_path', help='Path of the target image.')
+    parser.add_argument('-s', '--save', help='Save image.')
+    args = parser.parse_args()
+
+    cmd = args.cmd
+    img_path = args.img_path
+    save_img_path = args.save
 
     # change color
-    path = args[1]
-    img = cv2.imread(path, cv2.IMREAD_COLOR)
+    img = cv2.imread(img_path, cv2.IMREAD_COLOR)
     change_color(img, _from, _to)
 
-    if args[0] == 'show':
+    if cmd == 'show':
         show_image(img)
-    elif args[0] == 'save':
-        fname = args[2]
-        save_image(fname, img)
+
+    if save_img_path:
+        save_image(save_img_path, img)
 
     print('success!')
 
