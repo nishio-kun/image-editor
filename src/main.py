@@ -1,3 +1,7 @@
+"""
+This module changes color of images.
+"""
+
 import os
 import sys
 
@@ -17,6 +21,10 @@ MONO_TREES = [21, 21, 21]
 
 
 def change_color(image, _from, _to):
+    """
+    Change color of an image from specified color to specified color.
+    """
+
     image[np.where((image == _from).all(axis=2))] = _to
 
 
@@ -31,6 +39,8 @@ def show_image(img):
 
 def main(_from, _to):
     """
+    Entry point.
+
     USAGE
     -----
     python src/main.py show data/<input_file>
