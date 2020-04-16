@@ -48,6 +48,14 @@ def show_image_array(img):
     plt.show()
 
 
+def save_image(path, img):
+    """
+    Save image.
+    """
+
+    cv2.imwrite(path, img)
+
+
 def main(_from, _to):
     """
     Entry point.
@@ -68,9 +76,8 @@ def main(_from, _to):
     if args[0] == 'show':
         show_image(img)
     elif args[0] == 'save':
-        # save image
         fname = args[2]
-        cv2.imwrite(fname, img)
+        save_image(fname, img)
 
     print('success!')
 
