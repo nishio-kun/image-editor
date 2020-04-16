@@ -3,6 +3,8 @@ import numpy as np
 import os
 import sys
 
+import matplotlib.pyplot as plt
+
 
 COLOR_BUILDINGS = [70, 70, 70]
 COLOR_PEOPLE = [60, 20, 220]
@@ -16,6 +18,15 @@ MONO_TREES = [21, 21, 21]
 
 def change_color(image, _from, _to):
     image[np.where((image == _from).all(axis=2))] = _to
+
+
+def show_image(img):
+    """
+    Show image using matplotlib.
+    """
+
+    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY))
+    plt.show()
 
 
 def main(_from, _to):
