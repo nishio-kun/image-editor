@@ -28,6 +28,17 @@ def change_color(image, _from, _to):
     image[np.where((image == _from).all(axis=2))] = _to
 
 
+def show_image(img):
+    """
+    Show image using cv2.
+    """
+
+    cv2.namedWindow('img', cv2.WINDOW_NORMAL)
+    cv2.imshow('img', img)
+    cv2.waitKey() & 0xff
+    cv2.destroyAllWindows()
+
+
 def show_image_array(img):
     """
     Show image using matplotlib.
@@ -55,11 +66,7 @@ def main(_from, _to):
     change_color(img, _from, _to)
 
     if args[0] == 'show':
-        # show image
-        cv2.namedWindow('img', cv2.WINDOW_NORMAL)
-        cv2.imshow('img', img)
-        cv2.waitKey() & 0xff
-        cv2.destroyAllWindows()
+        show_image(img)
     elif args[0] == 'save':
         # save image
         fname = args[2]
