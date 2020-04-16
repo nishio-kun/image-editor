@@ -28,7 +28,7 @@ def change_color(image, _from, _to):
     image[np.where((image == _from).all(axis=2))] = _to
 
 
-def show_image(img):
+def show_image_array(img):
     """
     Show image using matplotlib.
     """
