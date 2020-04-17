@@ -56,9 +56,9 @@ def main():
     parser.add_argument('cmd', choices=['show', 'change'],
                         help='"cmd" is "show" or "change".')
     parser.add_argument('img_path', help='Path of the target image.')
-    parser.add_argument('-f', type=int, choices=range(0, 255),
+    parser.add_argument('-f', type=int, choices=range(0, 256),
                         help='Change color from that.')
-    parser.add_argument('-t', type=int, choices=range(0, 255),
+    parser.add_argument('-t', type=int, choices=range(0, 256),
                         help='Change color to that.')
     parser.add_argument('-s', '--save', help='Save image.')
     args = parser.parse_args()
