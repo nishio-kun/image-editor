@@ -74,7 +74,7 @@ def main():
     if cmd == 'show':
         show_image_array(img)
     elif cmd == 'change':
-        if not all([from_, to]):
+        if (from_ is None) or (to is None):
             print('"-f", "-t" are required if "cmd" is "change"')
             sys.exit(1)
         change_color(img, from_, to)
