@@ -11,16 +11,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-COLOR_BUILDINGS = [70, 70, 70]
-COLOR_PEOPLE = [60, 20, 220]
-COLOR_SKY = [180, 130, 70]
-COLOR_CARS = [142, 0, 0]
-COLOR_TREES = [35, 142, 107]
-
-MONO_BUILDINGS = [11, 11, 11]
-MONO_TREES = [21, 21, 21]
-
-
 def change_color(image, _from, _to):
     """
     Change color of an image from specified color to specified color.
@@ -57,7 +47,7 @@ def save_image(path, img):
     cv2.imwrite(path, img)
 
 
-def main(_from, _to):
+def main():
     """
     Entry point.
     """
@@ -66,25 +56,34 @@ def main(_from, _to):
     parser.add_argument('cmd', choices=['show', 'change'],
                         help='"cmd" is "show" or "change".')
     parser.add_argument('img_path', help='Path of the target image.')
+    parser.add_argument('-f', type=int, choices=range(0, 255),
+                        help='Change color from that.')
+    parser.add_argument('-t', type=int, choices=range(0, 255),
+                        help='Change color to that.')
     parser.add_argument('-s', '--save', help='Save image.')
     args = parser.parse_args()
 
     cmd = args.cmd
     img_path = args.img_path
+    from_ = args.f
+    to = args.t
     save_img_path = args.save
 
-    # change color
     img = cv2.imread(img_path, cv2.IMREAD_COLOR)
-    change_color(img, _from, _to)
 
     if cmd == 'show':
+        show_image_array(img)
+    elif cmd == 'change':
+        if not all([from_, to]):
+            print('"-f", "-t" are required if "cmd" is "change"')
+            sys.exit(1)
+        change_color(img, from_, to)
         show_image(img)
 
     if save_img_path:
         save_image(save_img_path, img)
-
-    print('success!')
+        print(f'saved to {save_img_path}')
 
 
 if __name__ == '__main__':
-    main(MONO_TREES, MONO_BUILDINGS)
+    main()
