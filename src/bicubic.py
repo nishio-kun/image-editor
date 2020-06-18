@@ -55,7 +55,7 @@ def main():
 
     for img_path in imgs:
         root, ext = os.path.splitext(img_path)
-        save_path = f'{root}_x{magnification_inverse}{ext}'
+        save_path = f'{root}x{magnification_inverse}{ext}'
 
         img = cv2.imread(img_path, cv2.IMREAD_COLOR)
         dst = bicubic(img, magnification)
