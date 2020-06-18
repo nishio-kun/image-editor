@@ -51,7 +51,7 @@ def main():
     assert os.path.isdir(path)
 
     imgs = [os.path.join(path, file_) for file_ in os.listdir(path)
-            if os.path.splitext(file_)[-1] in ['.png']]
+            if os.path.splitext(file_)[-1] in ['.png', '.jpg']]
 
     for img_path in imgs:
         root, ext = os.path.splitext(img_path)
