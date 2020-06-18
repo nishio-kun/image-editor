@@ -7,6 +7,7 @@ import os
 import sys
 
 import cv2
+import tqdm
 
 
 def bicubic(img, magnification):
@@ -55,7 +56,7 @@ def main():
     imgs = [file_ for file_ in os.listdir(path)
             if os.path.splitext(file_)[-1] in ['.png', '.jpg']]
 
-    for img_path in imgs:
+    for img_path in tqdm.tqdm(imgs):
         img = cv2.imread(os.path.join(path, img_path), cv2.IMREAD_COLOR)
         dst = bicubic(img, magnification)
         cv2.imwrite(os.path.join(save_path, img_path), dst)
