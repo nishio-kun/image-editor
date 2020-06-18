@@ -41,25 +41,24 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('dir', help='Directory that has images.')
+    parser.add_argument('savedir', help='Directory where images are saved.')
     parser.add_argument('--magnification', '-m', type=float, default=0.5,
                         help='Magnification.')
     args = parser.parse_args()
 
     path = args.dir
+    save_path = args.savedir
     magnification = args.magnification
     magnification_inverse = int(1 / magnification)
     assert os.path.isdir(path)
 
-    imgs = [os.path.join(path, file_) for file_ in os.listdir(path)
+    imgs = [file_ for file_ in os.listdir(path)
             if os.path.splitext(file_)[-1] in ['.png', '.jpg']]
 
     for img_path in imgs:
-        root, ext = os.path.splitext(img_path)
-        save_path = f'{root}x{magnification_inverse}{ext}'
-
-        img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+        img = cv2.imread(os.path.join(path, img_path), cv2.IMREAD_COLOR)
         dst = bicubic(img, magnification)
-        cv2.imwrite(save_path, dst)
+        cv2.imwrite(os.path.join(save_path, img_path), dst)
 
 
 if __name__ == '__main__':
