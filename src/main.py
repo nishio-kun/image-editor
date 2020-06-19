@@ -60,6 +60,18 @@ def save_image(path, img):
     cv2.imwrite(path, img)
 
 
+def save_or_show(img, save_img_path=None):
+    """
+    Save or show image.
+    """
+
+    if save_img_path:
+        save_image(save_img_path, img)
+        print(f'saved to {save_img_path}')
+    else:
+        show_image(img)
+
+
 def main():
     """
     Entry point.
@@ -89,30 +101,16 @@ def main():
     if cmd == 'show':
         show_image_array(img)
     elif cmd == 'change':
-        if (from_ is None) or (to is None):
-            print('"-f", "-t" are required if "cmd" is "change"')
-            sys.exit(1)
+        assert (from_ and to), '"-f", "-t" are required if "cmd" is "change"'
 
         change_color(img, from_, to)
-
-        if save_img_path:
-            save_image(save_img_path, img)
-            print(f'saved to {save_img_path}')
-        else:
-            show_image(img)
+        save_or_show(img, save_img_path)
     elif cmd == 'mask':
-        if not mask_img_path:
-            print('"-m" is required if "cmd" is "mask"')
-            sys.exit(1)
+        assert mask_img_path, '"-m" is required if "cmd" is "mask"'
 
         mask_img = cv2.imread(mask_img_path)
         masked_img = mask(img, mask_img)
-
-        if save_img_path:
-            save_image(save_img_path, masked_img)
-            print(f'saved to {save_img_path}')
-        else:
-            show_image(masked_img)
+        save_or_show(masked_img, save_img_path)
 
 
 if __name__ == '__main__':
